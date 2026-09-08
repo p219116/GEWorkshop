@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Gemini Enterprise 실무 워크숍 포털</title>
+  <meta name="description" content="Google Gemini Enterprise 핵심 실무 교육 포털 (Track 1. 기초 생산성 & Track 2. 에이전트 구축)">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --g-blue: #1a73e8;
+      --g-blue-dark: #1557b0;
+      --g-blue-light: #e8f0fe;
+      --g-green: #1e8e3e;
+      --g-green-dark: #137333;
+      --g-green-light: #e6f4ea;
+      --g-red: #d93025;
+      --g-yellow: #f9ab00;
+      --g-yellow-light: #fef7e0;
+      --purple: #7c3aed;
+      --purple-light: #f3e8ff;
+      
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --border-subtle: #f1f5f9;
+      
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-sub: #64748b;
+      
+      --font-display: 'Outfit', 'Noto Sans KR', sans-serif;
+      --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 26px;
+      
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+      letter-spacing: -0.015em;
+      word-break: keep-all;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Google 4-Color Accent Line */
+    .g-top-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #4285f4 0%, #ea4335 33%, #fbbc04 66%, #34a853 100%);
+      z-index: 1000;
+    }
+
+    /* Google 4-Color Dots */
+    .g-dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .g-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .g-dot.blue { background-color: #4285f4; }
+    .g-dot.red { background-color: #ea4335; }
+    .g-dot.yellow { background-color: #fbbc04; }
+    .g-dot.green { background-color: #34a853; }
+
+    /* Ambient Background Glow */
+    .ambient-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .glow-1 { width: 500px; height: 500px; top: -5%; right: 10%; background: radial-gradient(circle, #3b82f6 0%, transparent 70%); }
+    .glow-2 { width: 450px; height: 450px; bottom: 10%; left: 5%; background: radial-gradient(circle, #10b981 0%, transparent 70%); }
+
+    /* Top Navigation Bar */
+    header.app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+      height: 68px;
+      display: flex;
+      align-items: center;
+      padding: 0 36px;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.08rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span { color: var(--g-blue); }
+
+    .brand-sub {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    .nav-pills {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-pill a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+    }
+
+    .nav-pill a:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .nav-pill.active a {
+      background: var(--g-blue-light);
+      color: var(--g-blue);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-keynote {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      font-size: 0.86rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-keynote:hover {
+      border-color: var(--g-blue);
+      color: var(--g-blue);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Main Container */
+    main.main-container {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 36px 24px 80px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* Hero Section */
+    .hero-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 44px 48px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 320px;
+      height: 100%;
+      background: radial-gradient(circle at 100% 0%, rgba(66, 133, 244, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+    }
+
+    .hero-badge.blue {
+      background: var(--g-blue-light);
+      color: var(--g-blue);
+      border-color: #bfdbfe;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #1a73e8 0%, #1e8e3e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .hero-desc {
+      font-size: 0.96rem;
+      color: var(--text-sub);
+      max-width: 820px;
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .hero-chips-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+
+    .chip-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .chip-dot.green { background-color: var(--g-green); }
+    .chip-dot.blue { background-color: var(--g-blue); }
+    .chip-dot.purple { background-color: var(--purple); }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .section-title-group h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title-group p {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    /* 2-Track Grid */
+    .tracks-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .tracks-dual-grid { grid-template-columns: 1fr; }
+      .header-inner { flex-direction: column; gap: 12px; }
+      .hero-card { padding: 32px 24px; }
+    }
+
+    .track-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 34px 36px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .track-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: #cbd5e1;
+    }
+
+    .track-card.t1 { border-top: 5px solid var(--g-green); }
+    .track-card.t2 { border-top: 5px solid var(--g-blue); }
+
+    .track-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .track-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .track-card.t1 .track-icon-box { background: var(--g-green-light); border: 1px solid #c6f6d5; }
+    .track-card.t2 .track-icon-box { background: var(--g-blue-light); border: 1px solid #bfdbfe; }
+
+    .track-meta-title {
+      flex: 1;
+    }
+
+    .track-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+
+    .track-card.t1 .track-badge { color: var(--g-green-dark); }
+    .track-card.t2 .track-badge { color: var(--g-blue-dark); }
+
+    .track-title {
+      font-size: 1.38rem;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .track-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
+    .features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 28px;
+      padding: 18px 0;
+      border-top: 1px solid #f1f5f9;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .features-list li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .track-card.t1 .features-list li::before {
+      content: '✓';
+      font-weight: 900;
+      color: var(--g-green);
+      font-size: 0.95rem;
+    }
+
+    .track-card.t2 .features-list li::before {
+      content: '✓';
+      font-weight: 900;
+      color: var(--g-blue);
+      font-size: 0.95rem;
+    }
+
+    .track-actions-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .btn-start-track {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 0.94rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      color: #ffffff;
+      transition: all 0.18s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .track-card.t1 .btn-start-track {
+      background: linear-gradient(135deg, var(--g-green), var(--g-green-dark));
+    }
+    .track-card.t1 .btn-start-track:hover {
+      background: var(--g-green-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(30, 142, 62, 0.3);
+    }
+
+    .track-card.t2 .btn-start-track {
+      background: linear-gradient(135deg, var(--g-blue), var(--g-blue-dark));
+    }
+    .track-card.t2 .btn-start-track:hover {
+      background: var(--g-blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+    }
+
+    .btn-slide-link {
+      padding: 11px 18px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-main);
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      transition: all 0.15s ease;
+    }
+
+    .btn-slide-link:hover {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: var(--g-blue);
+      transform: translateY(-1px);
+    }
+
+    /* Resources Center (Downloads) */
+    .resources-section {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .download-tracks-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .download-tracks-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .download-track-box {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scroll-margin-top: 100px;
+    }
+
+    .download-track-box.t1 {
+      border-top: 4px solid var(--g-green);
+    }
+
+    .download-track-box.t2 {
+      border-top: 4px solid var(--g-blue);
+    }
+
+    .download-track-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .download-track-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .download-track-box.t1 .download-track-title { color: #166534; }
+    .download-track-box.t2 .download-track-title { color: #1e40af; }
+
+    .download-track-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .download-track-box.t1 .download-track-badge {
+      background: rgba(34, 197, 94, 0.15);
+      color: #15803d;
+    }
+
+    .download-track-box.t2 .download-track-badge {
+      background: rgba(59, 130, 246, 0.15);
+      color: #1d4ed8;
+    }
+
+    .download-files-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .resource-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.15s ease;
+    }
+
+    .resource-card:hover {
+      background: #ffffff;
+      border-color: var(--g-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .resource-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .resource-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex-grow: 1;
+    }
+
+    .resource-name {
+      font-size: 0.86rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text-main);
+    }
+
+    .resource-tag {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .resource-download-arrow {
+      font-size: 0.82rem;
+      color: var(--g-blue);
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: #eff6ff;
+    }
+
+    /* Prompt Framework Cheat Sheet */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .framework-grid { grid-template-columns: 1fr; }
+    }
+
+    .framework-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 22px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .framework-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .framework-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text-main);
+    }
+
+    .framework-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: var(--text-muted);
+    }
+
+    .framework-desc {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .framework-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .f-tag {
+      font-size: 0.76rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer.app-footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      padding: 28px 36px;
+      text-align: center;
+      font-size: 0.84rem;
+      color: var(--text-sub);
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .footer-source {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-source .source-label {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .footer-source .source-link {
+      color: var(--g-blue);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .footer-source .source-link:hover {
+      text-decoration: underline;
+      color: var(--g-blue-dark);
+    }
+
+    .footer-meta {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.80rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Google 4-Color Accent Line -->
+  <div class="g-top-line"></div>
+
+  <!-- Ambient Glow -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Top App Navigation -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-group">
+        <div class="brand-icon">🌐</div>
+        <div class="brand-text">
+          <div class="brand-title">
+            Gemini <span>Enterprise</span>
+            <div class="g-dots">
+              <span class="g-dot blue"></span>
+              <span class="g-dot red"></span>
+              <span class="g-dot yellow"></span>
+              <span class="g-dot green"></span>
+            </div>
+          </div>
+          <span class="brand-sub">Google Cloud KR Customer Engineering</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-pills">
+          <li class="nav-pill active"><a href="index.html">🏠 홈 (Home)</a></li>
+          <li class="nav-pill"><a href="track1.html">🟢 Track 1. 기초 생산성</a></li>
+          <li class="nav-pill"><a href="track2.html">🔵 Track 2. 에이전트 구축</a></li>
+          <li class="nav-pill"><a href="#resources">📥 실습 자료</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="slide_v2.html" target="_blank" class="btn-keynote" title="16:9 전체화면 발표 슬라이드">
+          <span>🎯 오프닝 키노트 열기</span>
+          <span>📽️</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- Hero Box -->
+    <section class="hero-card">
+      <div class="hero-badge-row">
+        <div class="hero-badge blue">
+          <div class="g-dots">
+            <span class="g-dot blue"></span>
+            <span class="g-dot green"></span>
+          </div>
+          <span>Enterprise Hands-on Workshop</span>
+        </div>
+        <div class="hero-badge">
+          <span>엔터프라이즈 실무 맞춤형 인터랙티브 가이드</span>
+        </div>
+      </div>
+
+      <h1 class="hero-title">
+        Google Gemini Enterprise <span class="highlight">실무 워크숍</span>
+      </h1>
+      <div class="hero-subtitle">
+        수준별 맞춤형 업무 생산성 혁신 &amp; 비즈니스 에이전트 구축
+      </div>
+      <p class="hero-desc">
+        Gemini Enterprise의 일상 업무 생산성 혁신부터 에이전틱 자동화까지, 브라우저 환경에서 직접 실습하며 체감하는 2대 핵심 교육 트랙입니다. 실시간 웹 검색, 엑셀/파워포인트 분석부터 팀 도서관 구축과 비즈니스 워크플로우 에이전트 설계까지 단계별로 학습할 수 있습니다.
+      </p>
+
+      <div class="hero-chips-row">
+        <span class="meta-chip"><span class="chip-dot green"></span>입문~중급 실무자 대상</span>
+        <span class="meta-chip"><span class="chip-dot blue"></span>100% 브라우저 기반 실습</span>
+        <span class="meta-chip"><span class="chip-dot purple"></span>파워포인트/엑셀 문서 분석</span>
+        <span class="meta-chip"><span class="chip-dot green"></span>Zero Data Leak 기업 보안</span>
+      </div>
+    </section>
+
+    <!-- 2대 핵심 트랙 -->
+    <section>
+      <div class="section-header">
+        <div class="section-title-group">
+          <h2>🎯 2대 핵심 실무 트랙 (Core Tracks)</h2>
+          <p>수강생의 업무 성격과 난이도에 맞춰 설계된 2단계 인터랙티브 핸즈온입니다.</p>
+        </div>
+      </div>
+
+      <div class="tracks-dual-grid">
+        <!-- Track 1 Card -->
+        <article class="track-card t1">
+          <div>
+            <div class="track-header">
+              <div class="track-icon-box">🟢</div>
+              <div class="track-meta-title">
+                <span class="track-badge">입문 · 전사 실무자 공통</span>
+                <h3 class="track-title">Track 1. Day 1 Value</h3>
+              </div>
+            </div>
+            <p class="track-desc">
+              별도의 개발 연동 없이 브라우저에서 바로 체감하는 Gemini Enterprise의 일상 업무 생산성 극대화 가이드입니다.
+            </p>
+            <ul class="features-list">
+              <li>나만의 개인화 설정 및 업무 맥락 (pContext)</li>
+              <li>실시간 구글 검색 그라운딩 및 SWOT 분석</li>
+              <li>고품질 Image 및 Video 미디어 생성</li>
+              <li>엑셀 수식·피벗 차트 및 파워포인트 요약 분석</li>
+              <li>Canvas 프레젠테이션 &amp; 보고서 자동 생성</li>
+              <li>실무 표준 프롬프트 작성법 (CRAFT, APE, CO-STAR)</li>
+            </ul>
+          </div>
+          <div class="track-actions-bar">
+            <a href="track1.html" class="btn-start-track">실습 가이드 시작하기 &rarr;</a>
+            <a href="#track1-downloads" class="btn-slide-link">📥 Track 1 실습 파일</a>
+            <a href="slide_track1_v2.html" target="_blank" class="btn-slide-link">📽️ 발표 슬라이드</a>
+          </div>
+        </article>
+
+        <!-- Track 2 Card -->
+        <article class="track-card t2">
+          <div>
+            <div class="track-header">
+              <div class="track-icon-box">🔵</div>
+              <div class="track-meta-title">
+                <span class="track-badge">중급 · 기획/분석 파워 유저</span>
+                <h3 class="track-title">Track 2. Agentic Value</h3>
+              </div>
+            </div>
+            <p class="track-desc">
+              Gemini Notebook 팀 도서관, 수백 개 소스 자율 탐색 Deep Research, 맞춤형 비즈니스 에이전트를 직접 제작합니다.
+            </p>
+            <ul class="features-list">
+              <li>Gemini Notebook 5대 과제 (인포그래픽, 팟캐스트, 슬라이드, 리포트)</li>
+              <li>Deep Research 다수 소스 자율 탐색 및 종합 보고서</li>
+              <li>Agent Designer 맞춤형 업무 에이전트 빌딩</li>
+              <li>Workflow Agent 다단계 비즈니스 자동화 파이프라인</li>
+            </ul>
+          </div>
+          <div class="track-actions-bar">
+            <a href="track2.html" class="btn-start-track">실습 가이드 시작하기 &rarr;</a>
+            <a href="#track2-downloads" class="btn-slide-link">📥 Track 2 실습 파일</a>
+            <a href="slide_track2_v2.html" target="_blank" class="btn-slide-link">📽️ 발표 슬라이드</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 실습 필수 첨부파일 다운로드 센터 -->
+    <section class="resources-section" id="resources">
+      <div class="section-header" style="margin-bottom: 0;">
+        <div class="section-title-group">
+          <h2>📥 실습 필수 파일 다운로드 센터</h2>
+          <p>Track 1과 Track 2 실습에 필요한 샘플 데이터 및 실습 패키지입니다. 트랙별로 클릭하여 다운로드하세요.</p>
+        </div>
+      </div>
+
+      <div class="download-tracks-container">
+        <!-- Track 1 전용 다운로드 박스 -->
+        <div class="download-track-box t1" id="track1-downloads">
+          <div class="download-track-header">
+            <h3 class="download-track-title">
+              <span>🟢</span> Track 1 전용 실습 파일
+            </h3>
+            <span class="download-track-badge">입문 실무용 (3종)</span>
+          </div>
+          <div class="download-files-list">
+            <a href="samples/coffee%20orders.xlsx" download="coffee orders.xlsx" class="resource-card">
+              <span class="resource-icon">📊</span>
+              <div class="resource-info">
+                <span class="resource-name">coffee orders.xlsx</span>
+                <span class="resource-tag">1.5절 엑셀 데이터 분석 &amp; 수식 검증</span>
+              </div>
+              <span class="resource-download-arrow">다운로드 ↓</span>
+            </a>
+
+            <a href="samples/202603-BigQuery%20New%20Feature%20Update.pptx" download="202603-BigQuery New Feature Update.pptx" class="resource-card">
+              <span class="resource-icon">📑</span>
+              <div class="resource-info">
+                <span class="resource-name">BigQuery Update.pptx</span>
+                <span class="resource-tag">1.6절 파워포인트 요약 분석 &amp; 핵심 추출</span>
+              </div>
+              <span class="resource-download-arrow">다운로드 ↓</span>
+            </a>
+
+            <a href="samples/handwrite_arch.png" download="handwrite_arch.png" class="resource-card">
+              <span class="resource-icon">📐</span>
+              <div class="resource-info">
+                <span class="resource-name">handwrite_arch.png</span>
+                <span class="resource-tag">1.4절 손그림 아키텍처 도면 분석 실습</span>
+              </div>
+              <span class="resource-download-arrow">다운로드 ↓</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Track 2 전용 다운로드 박스 -->
+        <div class="download-track-box t2" id="track2-downloads">
+          <div class="download-track-header">
+            <h3 class="download-track-title">
+              <span>🔵</span> Track 2 전용 실습 파일
+            </h3>
+            <span class="download-track-badge">중급 에이전트용 (5종)</span>
+          </div>
+          <div class="download-files-list">
+            <a href="samples/homestyle.zip" download="homestyle.zip" class="resource-card">
+              <span class="resource-icon">🏠</span>
+              <div class="resource-info">
+                <span class="resource-name">homestyle.zip</span>
+                <span class="resource-tag">2.1절 Gemini Notebook 시네마틱 슬라이드 팩</span>
+              </div>
+              <span class="resource-download-arrow">다운로드 ↓</span>
+            </a>
+
+            <a href="samples/data_agent.zip" download="data_agent.zip" class="resource-card">
+              <span class="resource-icon">🤖</span>
+              <div class="resource-info">
+                <span class="resource-name">data_agent.zip</span>
+                <span class="resource-tag">2.1절 리포트 자동 생성 실습 소스 패키지</span>
+              </div>
+              <span class="resource-download-arrow">다운로드 ↓</span>
+            </a>
+
+            <a href="samples/canvas.zip" download="canvas.zip" class="resource-card">
+              <span class="resource-icon">🎨</span>
+              <div class="resource-info">
+                <span class="resource-name">canvas.zip</span>
+                <span class="resource-tag">2.1절 Canvas 튜토리얼 비디오 제작 이미지 팩</span>
+              </div>
+              <span class="resource-download-arrow">다운로드 ↓</span>
+            </a>
+
+            <a href="samples/canvas.pdf" download="canvas.pdf" class="resource-card">
+              <span class="resource-icon">📄</span>
+              <div class="resource-info">
+                <span class="resource-name">canvas.pdf</span>
+                <span class="resource-tag">2.1절 Canvas 사용 가이드 튜토리얼 문서</span>
+              </div>
+              <span class="resource-download-arrow">다운로드 ↓</span>
+            </a>
+
+            <a href="samples/Cinematic%20Sanctuary.pptx" download="Cinematic Sanctuary.pptx" class="resource-card">
+              <span class="resource-icon">📊</span>
+              <div class="resource-info">
+                <span class="resource-name">Cinematic Sanctuary.pptx</span>
+                <span class="resource-tag">2.1절 시네마틱 프레젠테이션 샘플</span>
+              </div>
+              <span class="resource-download-arrow">다운로드 ↓</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 프롬프트 엔지니어링 3대 프레임워크 퀵 레퍼런스 -->
+    <section>
+      <div class="section-header">
+        <div class="section-title-group">
+          <h2>🚀 실무 프롬프트 3대 프레임워크 퀵 레퍼런스</h2>
+          <p>업무 목적과 완성도에 따라 최적의 프롬프트 구조를 선택하여 활용하세요.</p>
+        </div>
+      </div>
+
+      <div class="framework-grid">
+        <div class="framework-card">
+          <div class="framework-card-header">
+            <div class="framework-title">C.R.A.F.T</div>
+            <span class="framework-badge">공식 보고서 / 기획</span>
+          </div>
+          <p class="framework-desc">가장 체계적인 엔터프라이즈 표준 프레임워크로, 복합 기획서와 대외 공식 문에 최적화되어 있습니다.</p>
+          <div class="framework-tags">
+            <span class="f-tag">Context (맥락)</span>
+            <span class="f-tag">Role (역할)</span>
+            <span class="f-tag">Action (행동)</span>
+            <span class="f-tag">Format (형식)</span>
+            <span class="f-tag">Target (대상)</span>
+          </div>
+        </div>
+
+        <div class="framework-card">
+          <div class="framework-card-header">
+            <div class="framework-title">A.P.E</div>
+            <span class="framework-badge">빠른 초안 / 일상 업무</span>
+          </div>
+          <p class="framework-desc">간결하고 빠른 의사소통을 위한 3단계 프레임워크로, 1회성 요약이나 이메일 초안 작성에 유용합니다.</p>
+          <div class="framework-tags">
+            <span class="f-tag">Action (지시사항)</span>
+            <span class="f-tag">Purpose (작성 목적)</span>
+            <span class="f-tag">Expectation (기대수준)</span>
+          </div>
+        </div>
+
+        <div class="framework-card">
+          <div class="framework-card-header">
+            <div class="framework-title">CO-STAR</div>
+            <span class="framework-badge">마케팅 / C-Level 보고</span>
+          </div>
+          <p class="framework-desc">톤앤매너와 청중 타겟팅이 중요한 마케팅 카피, 브랜드 보도자료, 임원진 브리핑에 최적화되어 있습니다.</p>
+          <div class="framework-tags">
+            <span class="f-tag">Context</span>
+            <span class="f-tag">Objective</span>
+            <span class="f-tag">Style</span>
+            <span class="f-tag">Tone</span>
+            <span class="f-tag">Audience</span>
+            <span class="f-tag">Response</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-source">
+        <span class="source-label">📖 Reference Source:</span>
+        <a href="https://geap.dev/" target="_blank" rel="noopener noreferrer" class="source-link">
+          https://geap.dev/
+          <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+        <span>&bull; Google Cloud Gemini Enterprise Acceleration Program Guide</span>
+      </div>
+      <p class="footer-meta">
+        Google Cloud KR Customer Engineering Team &bull; Gemini Enterprise Hands-on Workshop Portal (Non-GWS Customized Edition)
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
