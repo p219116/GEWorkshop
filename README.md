@@ -1,4 +1,21 @@
-# Gemini Enterprise 핸즈온 교육 포털 (Hands-on Class)
+# 🚀 [Gemini Enterprise 교육 포털 바로가기 (Live Website)](https://p219116.github.io/GEWorkshop/)
+
+> 💡 **고객 및 참석자 안내 (가장 편하게 보는 방법)**:  
+> 본 교육 자료는 인터랙티브 웹 애플리케이션으로 제작되었습니다. GitHub 소스 코드 화면 대신 아래 **라이브 웹사이트 링크**를 클릭하시면 실제 웹 포털(프롬프트 원클릭 복사, 이미지 확대 줌 뷰어, 16:9 슬라이드 발표 모드)로 즉시 편하게 이용하실 수 있습니다!
+> 
+> 👉 **[https://p219116.github.io/GEWorkshop/](https://p219116.github.io/GEWorkshop/)**
+
+---
+
+### 🔗 주요 실습 바로가기 링크
+- 🏠 **[메인 포털 홈 & 대시보드 (Download Center)](https://p219116.github.io/GEWorkshop/)**
+- 🟢 **[Track 1. Day 1 Value (기본 실무 생산성)](https://p219116.github.io/GEWorkshop/track1.html)**
+- 🔵 **[Track 2. Agentic Value (팀 도서관 & 에이전틱 자동화)](https://p219116.github.io/GEWorkshop/track2.html)**
+- 📽️ **[오프닝 키노트 16:9 슬라이드](https://p219116.github.io/GEWorkshop/slide_v2.html)**
+- 📽️ **[Track 1 16:9 발표 슬라이드](https://p219116.github.io/GEWorkshop/slide_track1_v2.html)**
+- 📽️ **[Track 2 16:9 발표 슬라이드](https://p219116.github.io/GEWorkshop/slide_track2_v2.html)**
+
+---
 
 Google Gemini Enterprise를 활용한 실무 중심의 생성형 AI 핸즈온 교육 및 레퍼런스 가이드입니다. 
 비-GWS(Microsoft 365, 사내 SSO, 로컬 파일 환경) 엔터프라이즈 환경에 최적화된 맞춤형 2-Track 집중 실습 커리큘럼을 제공합니다.
@@ -7,19 +24,15 @@ Google Gemini Enterprise를 활용한 실무 중심의 생성형 AI 핸즈온 �
 > **📖 Reference Source (원문 출처)**  
 > 본 실습 포털 및 가이드는 Google Cloud의 **[https://geap.dev](https://geap.dev/)** (Gemini Enterprise Acceleration Program) 교육 자료를 바탕으로 비-GWS 엔터프라이즈 환경에 맞추어 개편 및 재구성되었습니다.
 
-> [!TIP]
-> **웹 포털로 실습하기**  
-> 본 저장소는 순수 HTML/JS 기반의 독립 웹 애플리케이션을 제공합니다. 로컬 웹서버(`python3 -m http.server 8080`)를 실행하고 브라우저에서 `http://localhost:8080`을 열면 인터랙티브한 실습 환경(프롬프트 원클릭 복사, 이미지 줌 뷰어, 슬라이드 발표 모드)을 즉시 이용할 수 있습니다.
-
 ---
 
 ## 🧭 핵심 실습 교육 트랙 (2-Track Focus)
 
 | 트랙 | 대상 및 난이도 | 주요 실습 주제 | MD 문서 | 웹 포털 실습 | 발표 슬라이드 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **🎯 오프닝 키노트** | 전사 임직원 · 리더십 | 엔터프라이즈 AI 도입 비전 및 업무 혁신 로드맵 | - | [🌐 포털 홈](index.html) | [📽️ Keynote 슬라이드](slide_v2.html) |
-| **🟢 Track 1. Day 1 Value** | 전사 임직원 · 기획/마케팅 실무진<br>`입문 · 전사 실무자 공통` | 보안 격리 프라이빗 세션, 파워포인트/엑셀 분석, 엑셀 대용량 수식 분석, PDF 교차 검증, 실시간 웹 검색 그라운딩, 3대 프롬프트 프레임워크 | [📖 Track 1 가이드](track1_day1_value.md) | [🌐 Track 1 포털](track1.html) | [📽️ 슬라이드](slide_track1_v2.html) |
-| **🔵 Track 2. Agentic Value** | 비즈니스 파워 유저 · 기획 리더<br>`중급 · 기획/분석 파워 유저` | 사내 소스 기반 팀 도서관(Gemini Notebook), 5대 멀티모달 자산 생성(오디오 팟캐스트, 시네마틱 슬라이드), Deep Research 심층 리서치, Agent Designer &amp; Workflow 조립 | [📖 Track 2 가이드](track2_advanced.md) | [🌐 Track 2 포털](track2.html) | [📽️ 슬라이드](slide_track2_v2.html) |
+| **🎯 오프닝 키노트** | 전사 임직원 · 리더십 | 엔터프라이즈 AI 도입 비전 및 업무 혁신 로드맵 | - | [🌐 포털 홈](https://p219116.github.io/GEWorkshop/) | [📽️ Keynote 슬라이드](https://p219116.github.io/GEWorkshop/slide_v2.html) |
+| **🟢 Track 1. Day 1 Value** | 전사 임직원 · 기획/마케팅 실무진<br>`입문 · 전사 실무자 공통` | 보안 격리 프라이빗 세션, 파워포인트/엑셀 분석, 엑셀 대용량 수식 분석, PDF 교차 검증, 실시간 웹 검색 그라운딩, 3대 프롬프트 프레임워크 | [📖 Track 1 가이드](track1_day1_value.md) | [🌐 Track 1 포털](https://p219116.github.io/GEWorkshop/track1.html) | [📽️ 슬라이드](https://p219116.github.io/GEWorkshop/slide_track1_v2.html) |
+| **🔵 Track 2. Agentic Value** | 비즈니스 파워 유저 · 기획 리더<br>`중급 · 기획/분석 파워 유저` | 사내 소스 기반 팀 도서관(Gemini Notebook), 5대 멀티모달 자산 생성(오디오 팟캐스트, 시네마틱 슬라이드), Deep Research 심층 리서치, Agent Designer &amp; Workflow 조립 | [📖 Track 2 가이드](track2_advanced.md) | [🌐 Track 2 포털](https://p219116.github.io/GEWorkshop/track2.html) | [📽️ 슬라이드](https://p219116.github.io/GEWorkshop/slide_track2_v2.html) |
 
 ---
 
