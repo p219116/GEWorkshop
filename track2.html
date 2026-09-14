@@ -1639,28 +1639,23 @@ Tone / Target: 답변의 최종 소비자가 누구인지 정의하고 전문적
      3) 마케팅 홍보용: 고객 안내 메시지 및 SNS 카드뉴스 홍보 문구 초안</div>
         </div>
 
-        <div class="callout info" style="margin: 18px 0;">
-          <div class="callout-title">📌 Step 2: 스케줄 트리거 설정 및 우측 패널에서 산출물 고도화</div>
-          <p style="margin: 4px 0 8px; font-size: 0.88rem; line-height: 1.55;">
+        <div class="callout info" style="margin: 18px 0 14px;">
+          <div class="callout-title">📌 Step 2: 스케줄 트리거 설정 및 산출물 고도화</div>
+          <p style="margin: 4px 0 0; font-size: 0.88rem; line-height: 1.55;">
             <strong>2-1. 정기 실행 스케줄 지정</strong><br>
             가운데 <strong>[수동]</strong> 노드를 클릭한 후, 우측 패널 상단의 <strong><code>⚡ 트리거 유형 ▾</code></strong>을 열어 <strong><code>🕒 일정</code></strong>을 선택하고 <strong>매주(Weekly) / 월요일 / 08:30 AM</strong>으로 설정합니다. (설정 완료 시 노드가 <code>Daily at 9:00 AM</code> 또는 지정한 일정으로 변경됩니다.)
           </p>
+        </div>
+
+        <div style="text-align: center; margin: 16px 0 20px;">
+          <img src="./img/workflowagent-kr-ui.png" style="max-width: 720px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); cursor: zoom-in;" alt="정기 실행 스케줄 설정 및 워크플로우 구성 화면">
+          <div style="font-size: 0.78rem; color: var(--text-sub); margin-top: 6px;">2-1 정기 실행 스케줄 트리거 설정 화면 (화면 중앙 상단 <strong>[수정 | 테스트]</strong> 탭 확인)</div>
+        </div>
+
+        <div class="callout info" style="margin: 18px 0;">
           <p style="margin: 0; font-size: 0.88rem; line-height: 1.55;">
-            <strong>2-2. 우측 패널에서 노드 프롬프트 직접 수정 (가장 확실하고 빠른 방법)</strong><br>
-            가운데 <strong>[맞춤형 3종 산출물 생성]</strong> 노드를 클릭하면, <strong>우측 패널에 <code>📝 요청 사항</code> 편집창</strong>이 열립니다. 대화창을 거치지 않고 여기에 원하는 문구(예: <em>"마케팅 홍보용 문구에 2030 세대 타겟의 인스타그램 해시태그 5개 및 카카오톡 알림톡 문구 추가"</em>)를 직접 타이핑하거나 붙여넣으시면 즉시 반영됩니다.
-          </p>
-        </div>
-
-        <div style="text-align: center; margin: 16px 0;">
-          <img src="./img/workflowagent-kr-ui.png" style="max-width: 720px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); cursor: zoom-in;" alt="Workflow 에이전트 한국어 UI 상세 화면">
-          <div style="font-size: 0.78rem; color: var(--text-sub); margin-top: 6px;">2-1 정기 스케줄 트리거 설정 및 2-2 우측 패널 <strong>[요청 사항]</strong> 직접 편집 화면</div>
-        </div>
-
-        <div class="callout tip" style="margin-bottom: 18px;">
-          <div class="callout-title">💡 대화창에 자꾸 '보안 정책 위반'이 뜨는 이유</div>
-          <p style="font-size: 0.86rem; color: #475569; margin: 4px 0 0; line-height: 1.55;">
-            대화창 상단에 한번 위반 경고가 발생하면 해당 대화 스레드 전체가 플래그(오염)되어 어떤 후속 질문을 넣어도 위반으로 차단됩니다.<br>
-            대화창 우측 상단의 <strong><code>🔄 (새로고침)</code></strong> 아이콘을 눌러 새 대화를 열거나, 위 2-2번처럼 <strong>우측 패널 <code>요청 사항</code>에서 직접 텍스트를 수정</strong>하는 것이 가장 깔끔합니다.
+            <strong>2-2. 우측 패널에서 노드 프롬프트 직접 수정</strong><br>
+            가운데 <strong>[맞춤형 3종 산출물 생성]</strong> 노드를 클릭하면, <strong>우측 패널에 <code>📝 요청 사항</code> 편집창</strong>이 열립니다. 여기에 원하는 문구(예: <em>"마케팅 홍보용 문구에 2030 세대 타겟의 인스타그램 해시태그 5개 및 카카오톡 알림톡 문구 추가"</em>)를 직접 입력하여 프롬프트를 고도화합니다.
           </p>
         </div>
 
