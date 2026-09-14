@@ -747,8 +747,7 @@
               <li class="sub-nav-item"><a href="#step-21">2.1 팀 도서관 &amp; 멀티모달</a></li>
               <li class="sub-nav-item"><a href="#step-22">2.2 Deep Research</a></li>
               <li class="sub-nav-item"><a href="#step-23">2.3 Gemini Agent Designer</a></li>
-              <li class="sub-nav-item"><a href="#step-24">2.4 Agent Workflow</a></li>
-              <li class="sub-nav-item"><a href="#step-24-2">2.4-2 Workflow Agent - 2</a></li>
+              <li class="sub-nav-item"><a href="#step-24">2.4 Workflow Agent</a></li>
             </ul>
           </li>
         </ul>
@@ -1534,147 +1533,8 @@ Tone / Target: 답변의 최종 소비자가 누구인지 정의하고 전문적
         <div class="step-card-header">
           <div class="step-badge">2.4</div>
           <div class="step-header-text">
-            <h2 class="step-title">Workflow Agent (다단계 비즈니스 파이프라인)</h2>
-            <p class="step-desc">트리거, 조건 분기, Human-in-the-loop 검토를 결합하여 엄격한 순서가 필요한 업무를 자동화합니다.</p>
-          </div>
-        </div>
-
-        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--text-main);">1) 글로벌 시장 조사 및 경쟁 분석 워크플로우</h3>
-
-        <div class="img-grid-dual">
-          <div class="img-frame">
-            <img src="./img/workflowagent-010.webp" alt="Workflow Agent 메뉴">
-            <span class="img-caption">New Agent &gt; Workflow Agent 선택</span>
-          </div>
-          <div class="img-frame">
-            <img src="./img/workflowagent-011.webp" alt="프롬프트 입력">
-            <span class="img-caption">다단계 워크플로우 설계 입력</span>
-          </div>
-        </div>
-        <div style="text-align: center; margin: 16px 0;">
-          <img src="./img/workflowagent-012.webp" style="max-width: 600px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); cursor: zoom-in;" alt="Workflow Agent 자동 생성">
-          <div style="font-size: 0.78rem; color: var(--text-sub); margin-top: 6px;">Workflow Agent 자동 생성 완료 화면</div>
-        </div>
-
-        <div class="prompt-studio">
-          <div class="prompt-studio-header">
-            <div class="prompt-studio-title">
-              <span class="prompt-chip blue">Workflow Spec</span>
-              <span>글로벌 시장 조사 에이전트 설계 명세</span>
-            </div>
-            <button type="button" class="btn-copy-prompt" onclick="copyPrompt('prompt-wf-market')">📋 명세 복사</button>
-          </div>
-          <div class="prompt-body" id="prompt-wf-market">역할: 당신은 글로벌 시장 조사 및 경쟁 분석 전문 수석 전략 컨설턴트 에이전트입니다.
-목적: 사용자가 특정 산업군, 기업명 또는 기술 분야를 제시하면 내장된 Web Grounding 검색 기능을 활용하여 최신 동향을 수집하고, 단계별 분석을 거쳐 경영진 보고서 형태의 종합 리포트를 자동 작성합니다.
-
-작업 워크플로우 단계:
-Step 1. 정보 수집 및 검증 (Web Grounding)
-  - 사용자가 제시한 주제 또는 기업에 대해 최신(최근 6개월 내) 시장 동향, 주요 기술 혁신, 경쟁 구도를 실시간 웹 검색을 통해 수집하세요.
-Step 2. 다각도 전략 분석 (Multi-angle Analysis)
-  - 수집된 정보를 바탕으로 다음 4가지 핵심 영역을 분석하세요:
-    1. 시장 성장 동인 및 주요 이슈 (Market Drivers & Key Trends)
-    2. 주요 경쟁사별 핵심 전략 비교 (Competitor Comparison)
-    3. SWOT 분석 (강점, 약점, 기회, 위협)
-    4. 향후 1~3년 시장 전망 (Market Outlook)
-
-Step 3. 경영진 요약 및 시각적 리포트 작성 (Executive Reporting)
-  - 아래 구성을 엄격히 준수하여 마크다운 표와 구조화된 개조식 문서로 응답하세요:
-  - Executive Summary (3줄 요약)
-  - 경쟁사 비교 분석표 (기업명, 핵심 기술/제품, 시장 점유율/강점, 최근 행보)
-  - 시사점 및 대응 전략 제언 (3가지 액션 플랜)
-
-Step 4. 후속 질의 제안
- - 보고서 작성 완료 후, 사용자가 이어 질문할 수 있는 심층 후속 질문 3가지를 하단에 추천하세요.</div>
-        </div>
-
-        <div class="img-grid-dual">
-          <div class="img-frame">
-            <img src="./img/workflowagent-013.webp" alt="노드별 세부 설정">
-            <span class="img-caption">노드별 세부 설정 (Instruction, Tools)</span>
-          </div>
-          <div class="img-frame">
-            <img src="./img/workflowagent-014.webp" alt="Preview 실행">
-            <span class="img-caption">Preview 탭 Start manually 실행</span>
-          </div>
-        </div>
-
-        <div class="img-grid-dual">
-          <div class="img-frame">
-            <img src="./img/workflowagent-015.webp" alt="실행 흐름 모니터링">
-            <span class="img-caption">단계별 실행 흐름 실시간 확인</span>
-          </div>
-          <div class="img-frame">
-            <img src="./img/workflowagent-016.webp" alt="Human-in-the-loop 승인">
-            <span class="img-caption">Human-in-the-loop 대상 입력 및 승인</span>
-          </div>
-        </div>
-
-        <div class="img-grid-dual">
-          <div class="img-frame">
-            <img src="./img/workflowagent-017.webp" alt="자동 진행">
-            <span class="img-caption">다음 단계로 순차 진행</span>
-          </div>
-          <div class="img-frame">
-            <img src="./img/workflowagent-018.webp" alt="노드 순차 실행">
-            <span class="img-caption">분석 노드 순차 실행</span>
-          </div>
-        </div>
-
-        <div style="text-align: center; margin: 16px 0;">
-          <img src="./img/workflowagent-019.webp" style="max-width: 600px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); cursor: zoom-in;" alt="모든 단계 완료">
-          <div style="font-size: 0.78rem; color: var(--text-sub); margin-top: 6px;">모든 단계 실행 완료 상태</div>
-        </div>
-
-        <div class="img-grid-dual">
-          <div class="img-frame">
-            <img src="./img/workflowagent-020.webp" alt="Executive Summary">
-            <span class="img-caption">산출물: Executive Summary</span>
-          </div>
-          <div class="img-frame">
-            <img src="./img/workflowagent-021.webp" alt="경쟁사 비교표">
-            <span class="img-caption">산출물: 경쟁사 비교 분석표</span>
-          </div>
-        </div>
-
-        <div class="img-grid-dual">
-          <div class="img-frame">
-            <img src="./img/workflowagent-022.webp" alt="SWOT 분석">
-            <span class="img-caption">산출물: SWOT 분석표</span>
-          </div>
-          <div class="img-frame">
-            <img src="./img/workflowagent-023.webp" alt="시사점 및 후속 질의">
-            <span class="img-caption">산출물: 시사점 및 후속 질의 제안</span>
-          </div>
-        </div>
-
-        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 32px 0 24px 0;">
-
-        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--text-main);">2) Price &amp; Margin Optimization Agent (가격 및 재고 최적화)</h3>
-        
-        <div class="prompt-studio">
-          <div class="prompt-studio-header">
-            <div class="prompt-studio-title">
-              <span class="prompt-chip purple">Structured Output Node</span>
-              <span>마진 및 재고 판단 에이전트 노드 프롬프트</span>
-            </div>
-            <button type="button" class="btn-copy-prompt" onclick="copyPrompt('prompt-wf-margin')">📋 프롬프트 복사</button>
-          </div>
-          <div class="prompt-body" id="prompt-wf-margin">제공된 재고 및 원가 마진 데이터를 분석하여, 마진이 10% 이상이고 재고가 충분한지 판단하라. JSON으로 {"approve": true/false, "margin_pct": 숫자, "stock_ok": true/false} 형태로만 응답하라.</div>
-        </div>
-
-        <div class="callout tip">
-          <div class="callout-title">💡 Human-in-the-Loop(HITL) 설계 가이드</div>
-          자동화 과정에서 마케팅 이메일 초안 발송 전에 <strong>Approval 노드</strong>를 배치하면, 담당자가 직접 최종 내용을 검토하고 수정한 뒤 발송할 수 있어 안전합니다.
-        </div>
-      </article>
-
-      <!-- 2.4-2 Workflow Agent - 2 -->
-      <article class="step-card" id="step-24-2">
-        <div class="step-card-header">
-          <div class="step-badge" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); font-size: 0.82rem; padding: 4px 8px;">2.4-2</div>
-          <div class="step-header-text">
-            <h2 class="step-title">Workflow Agent - 2: 실시간 리테일 트렌드 모니터링 &amp; 팝업 기획 파이프라인</h2>
-            <p class="step-desc">사내 데이터나 GWS 연동 없이도, 실시간 구글 웹 검색(Web Grounding)만으로 최신 트렌드를 자동 수집하고 ➔ 화제성 분석 ➔ 조건부 분기 ➔ 관리자 승인(HITL) ➔ 3대 맞춤 산출물을 원스톱으로 무인 자동화합니다.</p>
+            <h2 class="step-title">Workflow Agent: 실시간 리테일 트렌드 모니터링 &amp; 팝업 기획 파이프라인</h2>
+            <p class="step-desc">사내 데이터나 GWS 연동 없이도, 실시간 구글 웹 검색(Web Grounding)만으로 최신 트렌드를 자동 수집하고 ➔ 화제성 분석 ➔ 3대 맞춤 산출물을 원스톱으로 무인 자동화합니다.</p>
           </div>
         </div>
 
