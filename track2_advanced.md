@@ -520,17 +520,15 @@ graph TD
 ### 2) 단계별 실습 진행 가이드
 
 > [!TIP]
-> **"Validation Error" 및 "Security Policy Violation" 방지 팁**:
-> 1. **초기 생성 시 Validation Error 방지**: 초기 프롬프트에 `조건 분기(if-else)`나 `담당자 승인(Approval)` 같은 복합 제어 흐름을 한 번에 입력하면 DAG 스키마 검증기(Graph Validator)가 실패합니다. 초기 생성 시에는 **"데이터 수집 ➔ 트렌드 분석 ➔ 3대 맞춤 산출물"**의 **순차 파이프라인(Linear Flow)**으로 입력하여 기본 그래프를 먼저 생성해야 100% 오류 없이 통과합니다.
-> 2. **대화창 Security Policy Violation(보안 정책 위반 오탐) 방지**: 트리거(Trigger) 및 정기 스케줄(Schedule)은 시스템 백엔드 스케줄러(Cloud Scheduler)와 연결된 **'시스템 인프라 격리 영역'**입니다. 구글 엔터프라이즈 보안 가드레일이 임의 스케줄 조작 프롬프트를 차단하므로, **스케줄은 우측 패널 GUI(마우스 클릭)**로 설정하고, **좌측 대화창은 노드의 '분석 내용 및 보고서 양식' 고도화 전용**으로 활용합니다.
+> **실습 팁: 안정적인 파이프라인 설계 원칙**  
+> 워크플로우 에이전트는 **[데이터 수집 ➔ 트렌드 분석 ➔ 맞춤형 다각도 산출물]**의 명확한 순차 파이프라인으로 설계할 때 가장 안정적이고 완성도 높은 결과물을 도출합니다.
 
 1. **에이전트 생성**:
    - Gemini Enterprise 좌측 메뉴에서 **+ New agent**를 클릭하고 **Workflow agent**를 선택합니다.
 
-2. **워크플로우 설계 프롬프트 입력 (100% 검증 통과)**:
+2. **워크플로우 설계 프롬프트 입력**:
    - Chat Pane에 아래 설계 요청문을 입력합니다.
 
-   **[Option A · 추천 한국어 프롬프트]**
    ```markdown
    실시간 웹 검색(Web Grounding)을 통해 최신 리테일 트렌드를 모니터링하고, 화제성이 높은 아이템을 발굴하여 팝업 이벤트 기획안과 3대 맞춤 산출물을 자동 작성하는 워크플로우 에이전트를 만들어줘.
 
@@ -547,29 +545,11 @@ graph TD
         3) 마케팅 홍보용: 고객 안내 메시지 및 SNS 카드뉴스 홍보 문구 초안
    ```
 
-   **[Option B · 글로벌 영문 프롬프트 (100% Validation-Safe)]**
-   ```markdown
-   Create a workflow agent that monitors the latest retail trends via web search and generates dynamic pop-up event proposals with multi-angle deliverables.
-
-   1. Data Ingestion (Web Search):
-      - Search the web for trending pop-up stores, viral F&B items, and hot brand collaborations in major retail districts.
-
-   2. Trend Analysis:
-      - Analyze the viral impact, target demographics, and retail feasibility of the discovered trends.
-
-   3. Proposal & Deliverables:
-      - Select the most viable concept and generate the following 3 deliverables:
-        1) Executive Briefing: 1-page weekly retail trend & pop-up strategy briefing
-        2) Store Checklist: Space styling and tenant onboarding guide
-        3) Marketing Copy: Customer announcement text and social media caption
-   ```
-
-3. **우측 패널 GUI 스케줄 설정 & 좌측 대화창 산출물 고도화**:
-   - **3-1. [우측 패널 마우스 조작] 스케줄 트리거 변경 (1초 완료)**:
-     - 가운데 **[수동]** 노드를 클릭한 상태에서, 우측 패널 상단의 `⚡ 트리거 유형 ▾`을 클릭하여 펼칩니다.
-     - `🕒 일정`을 선택하고 **매주(Weekly) / 월요일 / 08:30 AM**으로 지정합니다. (보안상 스케줄은 대화창 대신 우측 패널 GUI로 설정)
-   - **3-2. [좌측 대화창] 분석 로직 및 산출물 포맷 고도화 (Chat Refinement)**:
-     - 대화창을 통해 노드의 프롬프트를 정책 위반 없이 안전하게 고도화합니다:
+3. **스케줄 트리거 설정 및 산출물 고도화**:
+   - **3-1. 정기 실행 스케줄 지정**:
+     - 가운데 **[수동]** 노드를 클릭한 상태에서, 우측 패널 상단의 `⚡ 트리거 유형 ▾`을 열어 `🕒 일정`을 선택하고 **매주(Weekly) / 월요일 / 08:30 AM**으로 설정합니다.
+   - **3-2. 산출물 포맷 고도화 (대화창 활용)**:
+     - 좌측 대화창을 통해 산출물의 세부 구성이나 타깃 요소를 자유롭게 보강합니다:
        ```markdown
        맞춤형 3종 산출물 생성 노드에서, 마케팅 홍보용 문구에 2030 세대를 타겟팅한 인스타그램 인기 해시태그 5개와 카카오톡 알림톡 문구 초안을 추가해줘.
        ```
