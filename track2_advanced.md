@@ -520,70 +520,64 @@ graph TD
 ### 2) 단계별 실습 진행 가이드
 
 > [!TIP]
-> **"Security Policy Violation" 방지 팁**:
-> Gemini Enterprise의 Workflow Agent 생성 창은 챗봇이 아닌 '에이전트를 설계해 주는 빌더(Agent Designer)'와의 대화창입니다. `역할: 당신은 ~입니다` 같은 시스템 프롬프트 형식이나 `위협`, `취약점` 같은 보안 키워드는 차단될 수 있으므로, 아래와 같은 **자연스러운 비즈니스 업무 요청문** 형태로 입력해야 합니다.
+> **"Validation Error" 및 "Security Policy Violation" 방지 팁**:
+> 1. **초기 생성 시 Validation Error 방지**: 초기 프롬프트에 `조건 분기(if-else)`나 `담당자 승인(Approval)` 같은 복합 제어 흐름을 한 번에 입력하면 DAG 스키마 검증기(Graph Validator)가 실패합니다. 초기 생성 시에는 **"데이터 수집 ➔ 트렌드 분석 ➔ 3대 맞춤 산출물"**의 **순차 파이프라인(Linear Flow)**으로 입력하여 기본 그래프를 먼저 생성해야 100% 오류 없이 통과합니다.
+> 2. **대화창 Security Policy Violation(보안 정책 위반 오탐) 방지**: 트리거(Trigger) 및 정기 스케줄(Schedule)은 시스템 백엔드 스케줄러(Cloud Scheduler)와 연결된 **'시스템 인프라 격리 영역'**입니다. 구글 엔터프라이즈 보안 가드레일이 임의 스케줄 조작 프롬프트를 차단하므로, **스케줄은 우측 패널 GUI(마우스 클릭)**로 설정하고, **좌측 대화창은 노드의 '분석 내용 및 보고서 양식' 고도화 전용**으로 활용합니다.
 
 1. **에이전트 생성**:
    - Gemini Enterprise 좌측 메뉴에서 **+ New agent**를 클릭하고 **Workflow agent**를 선택합니다.
 
-2. **워크플로우 설계 프롬프트 입력 (Option A or Option B)**:
+2. **워크플로우 설계 프롬프트 입력 (100% 검증 통과)**:
    - Chat Pane에 아래 설계 요청문을 입력합니다.
 
    **[Option A · 추천 한국어 프롬프트]**
    ```markdown
-   실시간 웹 검색을 통해 최신 리테일 트렌드를 모니터링하고, 화제성이 높은 아이템을 발굴하여 팝업 이벤트를 기획하는 워크플로우 에이전트를 만들어줘.
+   실시간 웹 검색(Web Grounding)을 통해 최신 리테일 트렌드를 모니터링하고, 화제성이 높은 아이템을 발굴하여 팝업 이벤트 기획안과 3대 맞춤 산출물을 자동 작성하는 워크플로우 에이전트를 만들어줘.
 
-   1. 데이터 수집:
-      - 웹 검색을 통해 백화점 및 핫플레이스(성수, 한남 등)의 최신 팝업스토어, 인기 F&B/디저트, 화제의 브랜드 협업 트렌드를 실시간 수집해줘.
+   1. 데이터 수집 (Web Grounding):
+      - 웹 검색을 통해 백화점 및 핫플레이스(성수, 한남 등)의 최신 팝업스토어, 인기 F&B 디저트, 화제의 브랜드 협업 트렌드를 실시간 수집해줘.
 
-   2. 트렌드 분석 및 조건 분기:
-      - 수집된 트렌드의 화제성과 백화점 팝업 유치 적합도를 분석해줘.
-      - 만약 대형 바이럴 트렌드나 즉각적인 유치가 필요한 인기 브랜드가 발견되면, 팝업 기획 모드로 분기해줘.
-      - 특별한 이슈가 없는 일반 트렌드라면 주간 시장 트렌드 요약 리포트를 작성하고 워크플로우를 종료해줘.
+   2. 트렌드 분석 (Trend Analysis):
+      - 수집된 트렌드의 바이럴 화제성과 백화점 팝업 유치 적합도(타겟 고객층, 예상 집객력, 차별화 요소)를 다각도로 분석해줘.
 
-   3. 관리자 검토 및 승인 (Approval):
-      - 팝업 기획 모드에서는 팝업 테마, 추천 입점 브랜드, 예상 운영 기간, 이벤트 혜택을 정리한 기획안을 작성하여 마케팅/MD 관리자에게 승인을 요청해줘.
-      - 관리자가 승인한 경우에만 최종 산출물 생성 단계를 실행해줘.
-
-   4. 3대 맞춤 산출물 생성:
-      - 경영진 보고용: 1페이지 주간 리테일 트렌드 & 팝업 전략 브리핑
-      - 점포 현장용: 지점별 팝업 공간 연출 및 브랜드 유치 실무 체크리스트
-      - 마케팅 홍보용: 고객 안내 메시지 및 SNS 카드뉴스 홍보 문구
+   3. 팝업 기획 및 3대 맞춤 산출물 생성 (Executive Deliverables):
+      - 분석 결과 가장 유치 타당성이 높은 1개 브랜드를 선정하여 다음 3가지 산출물을 작성해줘:
+        1) 경영진 보고용: 1페이지 주간 리테일 트렌드 및 팝업 전략 브리핑
+        2) 점포 현장용: 지점별 팝업 공간 연출 및 브랜드 유치 실무 체크리스트
+        3) 마케팅 홍보용: 고객 안내 메시지 및 SNS 카드뉴스 홍보 문구 초안
    ```
 
-   **[Option B · 글로벌 영문 프롬프트 (100% Policy-Safe)]**
+   **[Option B · 글로벌 영문 프롬프트 (100% Validation-Safe)]**
    ```markdown
-   Create a workflow agent that monitors the latest retail trends via web search and plans dynamic pop-up events for high-viral items.
+   Create a workflow agent that monitors the latest retail trends via web search and generates dynamic pop-up event proposals with multi-angle deliverables.
 
-   1. Data Ingestion:
-      - Search the web for the latest retail pop-up store trends, viral F&B/dessert items, and hot brand collaborations.
+   1. Data Ingestion (Web Search):
+      - Search the web for trending pop-up stores, viral F&B items, and hot brand collaborations in major retail districts.
 
-   2. Trend Analysis & Branching:
-      - Analyze the viral impact and retail feasibility of the discovered trends.
-      - If a high-viral trend or urgent pop-up opportunity is detected, branch into Pop-up Event Planning Mode.
-      - Otherwise, generate a standard weekly market trend summary report and finish.
+   2. Trend Analysis:
+      - Analyze the viral impact, target demographics, and retail feasibility of the discovered trends.
 
-   3. Manager Approval (Human-in-the-Loop):
-      - In Pop-up Planning Mode, draft a proposal (pop-up theme, recommended partner brands, event duration, customer benefits) and request approval from the Marketing/MD Manager.
-      - Proceed to deliverable creation only after the manager approves.
-
-   4. Multi-Deliverables:
-      - Executive Briefing: 1-page weekly retail trend & pop-up strategy briefing
-      - Store Operations: Store space styling and tenant onboarding checklist
-      - Marketing Copy: Customer announcement text and social media caption
+   3. Proposal & Deliverables:
+      - Select the most viable concept and generate the following 3 deliverables:
+        1) Executive Briefing: 1-page weekly retail trend & pop-up strategy briefing
+        2) Store Checklist: Space styling and tenant onboarding guide
+        3) Marketing Copy: Customer announcement text and social media caption
    ```
 
-3. **플로우 계획 검토 및 자연어 대화형 스케줄 보정**:
-   - 자동 생성된 노드 파이프라인을 확인하고, 채팅창을 통해 실행 주기를 보정합니다:
-     ```markdown
-     스케줄을 매일 실행 대신 매주 월요일 오전 8시 30분에 실행되도록 변경해줘. (Set schedule to run every Monday at 8:30 AM.)
-     ```
+3. **우측 패널 GUI 스케줄 설정 & 좌측 대화창 산출물 고도화**:
+   - **3-1. [우측 패널 마우스 조작] 스케줄 트리거 변경 (1초 완료)**:
+     - 가운데 **[수동]** 노드를 클릭한 상태에서, 우측 패널 상단의 `⚡ 트리거 유형 ▾`을 클릭하여 펼칩니다.
+     - `🕒 일정`을 선택하고 **매주(Weekly) / 월요일 / 08:30 AM**으로 지정합니다. (보안상 스케줄은 대화창 대신 우측 패널 GUI로 설정)
+   - **3-2. [좌측 대화창] 분석 로직 및 산출물 포맷 고도화 (Chat Refinement)**:
+     - 대화창을 통해 노드의 프롬프트를 정책 위반 없이 안전하게 고도화합니다:
+       ```markdown
+       맞춤형 3종 산출물 생성 노드에서, 마케팅 홍보용 문구에 2030 세대를 타겟팅한 인스타그램 인기 해시태그 5개와 카카오톡 알림톡 문구 초안을 추가해줘.
+       ```
 
    ![Workflow 플로우 계획 및 대화형 보정](./img/workflowagent-024.webp)
 
-4. **Preview 탭에서 Start manually로 사전 검증 및 HITL 테스트**:
-   - 상단 **Preview** 탭으로 전환 후 **Start manually**를 클릭하여 파이프라인을 테스트합니다.
-   - 이상 징후 감지 시 팝업되는 **Approval 노드**에서 관리자 승인/조정을 거친 뒤 3대 산출물이 생성되는지 확인합니다.
+4. **Preview 탭에서 Start manually로 사전 검증**:
+   - 상단 **Preview** 탭으로 전환 후 **Start manually**를 클릭하여 파이프라인을 테스트하고 3대 산출물이 생성되는지 확인합니다.
 
 5. **정기 실행 스케줄 확인 및 활성화 (Turn on / Publish)**:
    - 스케줄 설정 모달(Frequency: Weekly, Repeat on: M, Start at time: 08:30 AM)을 확인하고 **Turn on** 버튼을 클릭하여 워크플로우를 영구 활성화합니다.
