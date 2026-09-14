@@ -1775,41 +1775,37 @@ Step 4. 후속 질의 제안
         </div>
 
         <div class="callout info" style="margin: 18px 0;">
-          <div class="callout-title">📌 Step 2: 스케줄 트리거 설정 및 산출물 고도화</div>
+          <div class="callout-title">📌 Step 2: 스케줄 트리거 설정 및 우측 패널에서 산출물 고도화</div>
           <p style="margin: 4px 0 8px; font-size: 0.88rem; line-height: 1.55;">
             <strong>2-1. 정기 실행 스케줄 지정</strong><br>
-            가운데 <strong>[수동]</strong> 노드를 클릭한 후, 우측 패널 상단의 <strong><code>⚡ 트리거 유형 ▾</code></strong>을 열어 <strong><code>🕒 일정</code></strong>을 선택하고 <strong>매주(Weekly) / 월요일 / 08:30 AM</strong>으로 설정합니다.
+            가운데 <strong>[수동]</strong> 노드를 클릭한 후, 우측 패널 상단의 <strong><code>⚡ 트리거 유형 ▾</code></strong>을 열어 <strong><code>🕒 일정</code></strong>을 선택하고 <strong>매주(Weekly) / 월요일 / 08:30 AM</strong>으로 설정합니다. (설정 완료 시 노드가 <code>Daily at 9:00 AM</code> 또는 지정한 일정으로 변경됩니다.)
           </p>
           <p style="margin: 0; font-size: 0.88rem; line-height: 1.55;">
-            <strong>2-2. 산출물 포맷 고도화 (대화창 활용)</strong><br>
-            좌측 대화창을 통해 산출물의 세부 구성이나 타깃 요소를 자유롭게 보강할 수 있습니다. 아래의 고도화 프롬프트를 입력해 보세요.
+            <strong>2-2. 우측 패널에서 노드 프롬프트 직접 수정 (가장 확실하고 빠른 방법)</strong><br>
+            가운데 <strong>[맞춤형 3종 산출물 생성]</strong> 노드를 클릭하면, <strong>우측 패널에 <code>📝 요청 사항</code> 편집창</strong>이 열립니다. 대화창을 거치지 않고 여기에 원하는 문구(예: <em>"마케팅 홍보용 문구에 2030 세대 타겟의 인스타그램 해시태그 5개 및 카카오톡 알림톡 문구 추가"</em>)를 직접 타이핑하거나 붙여넣으시면 즉시 반영됩니다.
           </p>
-        </div>
-
-        <div class="prompt-studio">
-          <div class="prompt-studio-header">
-            <div class="prompt-studio-title">
-              <span class="prompt-chip blue">Chat Refinement</span>
-              <span>노드 산출물 고도화 대화 프롬프트</span>
-            </div>
-            <button type="button" class="btn-copy-prompt" onclick="copyPrompt('prompt-wf2-chat-adjust')">📋 고도화 요청 복사</button>
-          </div>
-          <div class="prompt-body" id="prompt-wf2-chat-adjust">맞춤형 3종 산출물 생성 노드에서, 마케팅 홍보용 문구에 2030 세대를 타겟팅한 인스타그램 인기 해시태그 5개와 카카오톡 알림톡 문구 초안을 추가해줘.</div>
         </div>
 
         <div style="text-align: center; margin: 16px 0;">
-          <img src="./img/workflowagent-024.webp" style="max-width: 680px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); cursor: zoom-in;" alt="Workflow 플로우 계획 및 대화형 보정">
-          <div style="font-size: 0.78rem; color: var(--text-sub); margin-top: 6px;">완성된 3단계 파이프라인 그래프 (스케줄 트리거 설정 및 세부 산출물 고도화 화면)</div>
+          <img src="./img/workflowagent-kr-ui.png" style="max-width: 720px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); cursor: zoom-in;" alt="Workflow 에이전트 한국어 UI 상세 화면">
+          <div style="font-size: 0.78rem; color: var(--text-sub); margin-top: 6px;">실제 워크플로우 화면: 상단 <strong>[수정 | 테스트]</strong> 탭, 우측 패널 <strong>[요청 사항]</strong> 직접 편집, 우측 상단 <strong>[사용 설정]</strong> 버튼</div>
+        </div>
+
+        <div class="callout tip" style="margin-bottom: 18px;">
+          <div class="callout-title">💡 대화창에 자꾸 '보안 정책 위반'이 뜨는 이유</div>
+          <p style="font-size: 0.86rem; color: #475569; margin: 4px 0 0; line-height: 1.55;">
+            대화창 상단에 한번 위반 경고가 발생하면 해당 대화 스레드 전체가 플래그(오염)되어 어떤 후속 질문을 넣어도 위반으로 차단됩니다.<br>
+            대화창 우측 상단의 <strong><code>🔄 (새로고침)</code></strong> 아이콘을 눌러 새 대화를 열거나, 위 2-2번처럼 <strong>우측 패널 <code>요청 사항</code>에서 직접 텍스트를 수정</strong>하는 것이 가장 깔끔합니다.
+          </p>
         </div>
 
         <div class="callout info" style="margin: 18px 0;">
-          <div class="callout-title">📌 Step 3: Preview 탭 수동 실행(Start manually) 및 HITL 승인 검증</div>
-          상단 <strong>Preview</strong> 탭으로 이동하여 <strong>Start manually</strong>를 실행합니다. 이상 징후 감지 시 팝업되는 <strong>Approval 노드</strong>에서 마케팅 담당자 승인 버튼을 클릭하여 파이프라인이 안전하게 제어되는지 확인합니다.
-        </div>
-
-        <div style="text-align: center; margin: 16px 0;">
-          <img src="./img/workflowagent-025.webp" style="max-width: 500px; width: 100%; border-radius: 8px; border: 1px solid var(--border-color); cursor: zoom-in;" alt="Preview 탭 및 스케줄 Turn on">
-          <div style="font-size: 0.78rem; color: var(--text-sub); margin-top: 6px;">Weekly 정기 무인 스케줄(Weekly Monday 08:30 AM) 설정 및 Turn on 최종 활성화</div>
+          <div class="callout-title">📌 Step 3: 상단 [테스트] 탭에서 수동 실행 및 최종 [사용 설정]</div>
+          <p style="margin: 4px 0 8px; font-size: 0.88rem; line-height: 1.55;">
+            1. 화면 상단 중앙의 <strong><code>테스트</code></strong> 탭(<code>수정</code> 탭 바로 옆)을 클릭합니다.<br>
+            2. 테스트 화면에서 파이프라인을 수동 실행하여, 웹 검색 그라운딩부터 3대 산출물(경영진 보고용, 점포 현장용, 마케팅 홍보용)이 완벽하게 생성되는지 확인합니다.<br>
+            3. 검증이 완료되면 우측 상단의 파란색 <strong><code>사용 설정</code></strong> 버튼을 클릭하여 워크플로우를 최종 활성화(Publish)합니다!
+          </p>
         </div>
 
         <div class="callout tip" style="margin-top: 24px;">
