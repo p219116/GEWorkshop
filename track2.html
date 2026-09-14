@@ -1616,27 +1616,41 @@ Tone / Target: 답변의 최종 소비자가 누구인지 정의하고 전문적
         </div>
 
         <!-- 한국어 프롬프트 박스 -->
-        <div class="prompt-studio" style="margin-bottom: 20px;">
+        <div class="prompt-studio" style="margin-bottom: 16px;">
           <div class="prompt-studio-header">
             <div class="prompt-studio-title">
               <span class="prompt-chip purple">설계 프롬프트</span>
-              <span>실시간 트렌드 모니터링 &amp; 팝업 기획 에이전트 설계 요청문</span>
+              <span>실시간 트렌드 모니터링 &amp; 팝업 기획 에이전트 설계 요청문 (결정론적 2단계 노드 강제)</span>
             </div>
             <button type="button" class="btn-copy-prompt" onclick="copyPrompt('prompt-wf2-spec')">📋 프롬프트 복사</button>
           </div>
-          <div class="prompt-body" id="prompt-wf2-spec">실시간 웹 검색(Web Grounding)을 통해 최신 리테일 트렌드를 모니터링하고, 화제성이 높은 아이템을 발굴하여 팝업 이벤트 기획안과 3대 맞춤 산출물을 자동 작성하는 워크플로우 에이전트를 만들어줘.
+          <div class="prompt-body" id="prompt-wf2-spec">실시간 웹 검색을 기반으로 리테일 트렌드를 분석하고 맞춤형 보고서를 작성하는 순차 워크플로우 파이프라인을 생성해줘.
 
-1. 데이터 수집 (Web Grounding):
-   - 웹 검색을 통해 백화점 및 핫플레이스(성수, 한남 등)의 최신 팝업스토어, 인기 F&amp;B 디저트, 화제의 브랜드 협업 트렌드를 실시간 수집해줘.
+이 워크플로는 반드시 아래 2개의 개별 노드가 순차적으로 연결된 구조여야 합니다. (두 단계를 절대로 하나로 합치지 마세요):
 
-2. 트렌드 분석 (Trend Analysis):
-   - 수집된 트렌드의 바이럴 화제성과 백화점 팝업 유치 적합도(타겟 고객층, 예상 집객력, 차별화 요소)를 다각도로 분석해줘.
+[1단계 노드: 최신 트렌드 분석 및 브랜드 선정]
+- 유형: 생성 (Google Search 웹 검색 연동)
+- 역할: 성수, 한남 등 최신 팝업스토어 및 디저트 F&B 트렌드를 실시간 검색하여 백화점 팝업 유치 적합도가 가장 높은 1개 브랜드를 선정하고 핵심 분석 결과를 정리한다.
 
-3. 팝업 기획 및 3대 맞춤 산출물 생성 (Executive Deliverables):
-   - 분석 결과 가장 유치 타당성이 높은 1개 브랜드를 선정하여 다음 3가지 산출물을 작성해줘:
-     1) 경영진 보고용: 1페이지 주간 리테일 트렌드 및 팝업 전략 브리핑
-     2) 점포 현장용: 지점별 팝업 공간 연출 및 브랜드 유치 실무 체크리스트
-     3) 마케팅 홍보용: 고객 안내 메시지 및 SNS 카드뉴스 홍보 문구 초안</div>
+[2단계 노드: 맞춤형 3종 산출물 생성]
+- 유형: 생성 (1단계 노드의 출력을 입력으로 전달받음)
+- 역할: 1단계에서 선정된 브랜드와 분석 데이터를 바탕으로 아래 3가지 산출물을 작성한다.
+  1) 경영진 보고용: 1페이지 주간 리테일 트렌드 및 팝업 전략 브리핑
+  2) 점포 현장용: 지점별 팝업 공간 연출 및 브랜드 유치 실무 체크리스트
+  3) 마케팅 홍보용: 고객 안내 메시지 및 SNS 카드뉴스 홍보 문구 초안
+
+※ 중요: 1단계와 2단계는 반드시 독립된 2개의 노드로 각각 분리하여 생성해야 합니다.</div>
+        </div>
+
+        <div class="callout tip" style="margin-bottom: 20px;">
+          <div class="callout-title">💡 실습 안내: 노드 구조 확인 및 분리 보정 방법</div>
+          <p style="font-size: 0.86rem; color: #475569; margin: 4px 0 8px; line-height: 1.55;">
+            Gemini Enterprise 워크플로 빌더의 응답 특성에 따라 2개 단계가 단일 노드로 병합되어 생성될 수 있습니다. 캔버스 화면에 <strong>2개의 노드가 분리되어 나타나지 않은 경우</strong>, 아래 방법 중 하나를 선택하여 파이프라인 구조를 정돈할 수 있습니다:
+          </p>
+          <ul style="margin: 4px 0 0 16px; padding: 0; font-size: 0.85rem; color: #334155; line-height: 1.6;">
+            <li><strong>대화형 수정 (권장)</strong>: 화면 좌측 하단 대화창(<em>무엇을 바꾸고 싶으신가요?</em>)에 <code>"트렌드 분석 노드 뒤에 '맞춤형 3종 산출물 생성' 노드를 추가해줘"</code>라고 입력하시면 에이전트 빌더가 자동으로 2번째 노드를 생성하여 연결합니다.</li>
+            <li><strong>캔버스 직접 추가</strong>: 첫 번째 노드 하단의 <strong><code>⊕</code> (추가)</strong> 버튼을 클릭한 후 <strong>[생성]</strong>을 선택하여 노드를 추가하고, 노드 명칭을 <code>맞춤형 3종 산출물 생성</code>으로 지정합니다.</li>
+          </ul>
         </div>
 
         <div class="callout info" style="margin: 18px 0 14px;">
