@@ -10,7 +10,7 @@
 ### 🔗 주요 실습 바로가기 링크
 - 🏠 **[메인 포털 홈 & 대시보드 (Download Center)](https://p219116.github.io/GEWorkshop/)**
 - 🟢 **[Track 1. Day 1 Value (기본 실무 생산성)](https://p219116.github.io/GEWorkshop/track1.html)**
-- 🔵 **[Track 2. Agentic Value (팀 도서관 & 에이전틱 자동화)](https://p219116.github.io/GEWorkshop/track2.html)**
+- 🔵 **[Track 2. Agentic Value (팀 노트북(Notebook) & 에이전틱 자동화)](https://p219116.github.io/GEWorkshop/track2.html)**
 - 📽️ **[오프닝 키노트 16:9 슬라이드](https://p219116.github.io/GEWorkshop/slide_v2.html)**
 - 📽️ **[Track 1 16:9 발표 슬라이드](https://p219116.github.io/GEWorkshop/slide_track1_v2.html)**
 - 📽️ **[Track 2 16:9 발표 슬라이드](https://p219116.github.io/GEWorkshop/slide_track2_v2.html)**
@@ -32,7 +32,7 @@ Google Gemini Enterprise를 활용한 실무 중심의 생성형 AI 핸즈온 �
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **🎯 오프닝 키노트** | 전사 임직원 · 리더십 | 엔터프라이즈 AI 도입 비전 및 업무 혁신 로드맵 | - | [🌐 포털 홈](https://p219116.github.io/GEWorkshop/) | [📽️ Keynote 슬라이드](https://p219116.github.io/GEWorkshop/slide_v2.html) |
 | **🟢 Track 1. Day 1 Value** | 전사 임직원 · 기획/마케팅 실무진<br>`입문 · 전사 실무자 공통` | 보안 격리 프라이빗 세션, 파워포인트/엑셀 분석, 엑셀 대용량 수식 분석, PDF 교차 검증, 실시간 웹 검색 그라운딩, 3대 프롬프트 프레임워크 | [📖 Track 1 가이드](track1_day1_value.md) | [🌐 Track 1 포털](https://p219116.github.io/GEWorkshop/track1.html) | [📽️ 슬라이드](https://p219116.github.io/GEWorkshop/slide_track1_v2.html) |
-| **🔵 Track 2. Agentic Value** | 비즈니스 파워 유저 · 기획 리더<br>`중급 · 기획/분석 파워 유저` | 사내 소스 기반 팀 도서관(Gemini Notebook), 5대 멀티모달 자산 생성(오디오 팟캐스트, 시네마틱 슬라이드), Deep Research 심층 리서치, Agent Designer &amp; Workflow 조립 | [📖 Track 2 가이드](track2_advanced.md) | [🌐 Track 2 포털](https://p219116.github.io/GEWorkshop/track2.html) | [📽️ 슬라이드](https://p219116.github.io/GEWorkshop/slide_track2_v2.html) |
+| **🔵 Track 2. Agentic Value** | 비즈니스 파워 유저 · 기획 리더<br>`중급 · 기획/분석 파워 유저` | 사내 소스 기반 팀 노트북(Notebook)(Gemini Notebook), 5대 멀티모달 자산 생성(오디오 팟캐스트, 시네마틱 슬라이드), Deep Research 심층 리서치, Agent Designer &amp; Workflow 조립 | [📖 Track 2 가이드](track2_advanced.md) | [🌐 Track 2 포털](https://p219116.github.io/GEWorkshop/track2.html) | [📽️ 슬라이드](https://p219116.github.io/GEWorkshop/slide_track2_v2.html) |
 
 ---
 

@@ -1,7 +1,7 @@
 # 🔵 Track 2. Advanced — Agentic Value
 
 > [!NOTE]
-> **트랙 개요**: Gemini Notebook 팀 도서관 구축, Deep Research 자율 보고서, 에이전트 빌더를 활용한 맞춤형 AI로 업무 파이프라인을 직접 구성하는 중급 실습 과정입니다.
+> **트랙 개요**: Gemini Notebook 팀 노트북(Notebook) 구축, Deep Research 자율 보고서, 에이전트 빌더를 활용한 맞춤형 AI로 업무 파이프라인을 직접 구성하는 중급 실습 과정입니다.
 
 > [!TIP]
 > **실습 첨부파일 다운로드**
